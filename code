@@ -1,0 +1,204 @@
+-- 1. Create Teachers Table and insert data
+CREATE TABLE Teachers (
+    teacher_id INT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    subject_specialization VARCHAR(100),
+    hire_date DATE,
+    email VARCHAR(100)
+);
+
+-- Insert data into Teachers Table
+INSERT INTO Teachers (first_name, last_name, subject_specialization, hire_date, email) VALUES
+('David', 'Adams', 'Mathematics', '2015-08-10', 'dadams@school.edu'),
+('Susan', 'Clark', 'English', '2010-01-25', 'sclark@school.edu'),
+('Mark', 'Lewis', 'Science', '2012-06-15', 'mlewis@school.edu'),
+('Linda', 'Walker', 'History', '2017-03-20', 'lwalker@school.edu'),
+('Michael', 'Hall', 'Physical Education', '2019-09-01', 'mhall@school.edu'),
+('Elizabeth', 'Young', 'Art', '2018-11-15', 'eyoung@school.edu'),
+('Christopher', 'King', 'Mathematics', '2014-07-10', 'cking@school.edu'),
+('Patricia', 'Scott', 'Science', '2011-05-17', 'pscott@school.edu'),
+('Matthew', 'Green', 'History', '2016-02-08', 'mgreen@school.edu'),
+('Jennifer', 'Baker', 'English', '2019-04-25', 'jbaker@school.edu'),
+('Joseph', 'Harris', 'Mathematics', '2010-09-11', 'jharris@school.edu'),
+('Barbara', 'Martin', 'Science', '2013-08-27', 'bmartin@school.edu'),
+('Robert', 'Lee', 'History', '2011-12-03', 'rlee@school.edu'),
+('Nancy', 'Perez', 'Art', '2014-05-30', 'nperez@school.edu'),
+('Kevin', 'Turner', 'Physical Education', '2016-10-17', 'kturner@school.edu');
+
+-- 2. Create Classes Table and insert data
+CREATE TABLE Classes (
+    class_id INT PRIMARY KEY AUTO_INCREMENT,
+    class_name VARCHAR(100),
+    subject VARCHAR(100),
+    teacher_id INT,
+    schedule_time TIME,
+    room_number VARCHAR(20),
+    FOREIGN KEY (teacher_id) REFERENCES Teachers(teacher_id)
+);
+
+-- Insert data into Classes Table
+INSERT INTO Classes (class_name, subject, teacher_id, schedule_time, room_number) VALUES
+('Math 101', 'Mathematics', 1, '08:00:00', 'Room 101'),
+('English 102', 'English', 2, '09:00:00', 'Room 102'),
+('Science 101', 'Science', 3, '10:00:00', 'Room 103'),
+('History 101', 'History', 4, '11:00:00', 'Room 104'),
+('PE 101', 'Physical Education', 5, '12:00:00', 'Gym'),
+('Art 101', 'Art', 6, '01:00:00', 'Room 105'),
+('Math 201', 'Mathematics', 7, '02:00:00', 'Room 201'),
+('Science 201', 'Science', 8, '03:00:00', 'Room 202'),
+('History 201', 'History', 9, '04:00:00', 'Room 203'),
+('English 201', 'English', 10, '05:00:00', 'Room 204'),
+('Math 301', 'Mathematics', 11, '08:00:00', 'Room 301'),
+('Science 301', 'Science', 12, '09:00:00', 'Room 302'),
+('History 301', 'History', 13, '10:00:00', 'Room 303'),
+('Art 201', 'Art', 14, '11:00:00', 'Room 304'),
+('PE 201', 'Physical Education', 15, '12:00:00', 'Gym');
+
+-- 3. Create Students Table and insert data
+CREATE TABLE Students (
+    student_id INT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    date_of_birth DATE,
+    gender ENUM('Male', 'Female', 'Other'),
+    grade_level INT,
+    favourite_class_id INT, 
+    FOREIGN KEY (favourite_class_id) REFERENCES Classes(class_id)
+);
+
+-- Insert data into Students Table
+INSERT INTO Students (first_name, last_name, date_of_birth, gender, grade_level, favourite_class_id) VALUES
+('John', 'Doe', '2005-08-15', 'Male', 10, 1),  
+('Emily', 'Smith', '2006-03-22', 'Female', 9, 2),  
+('James', 'Johnson', '2004-07-19', 'Male', 11, 3),  
+('Sophia', 'Williams', '2005-11-12', 'Female', 10, 4),  
+('Liam', 'Brown', '2003-05-02', 'Male', 12, 5),  
+('Olivia', 'Jones', '2004-12-30', 'Female', 11, 6),  
+('Noah', 'Garcia', '2007-09-21', 'Male', 8, 1),  
+('Emma', 'Martinez', '2005-04-18', 'Female', 10, 2),  
+('Ava', 'Davis', '2006-02-13', 'Female', 9, 3),  
+('William', 'Miller', '2003-11-25', 'Male', 12, 4),  
+('Isabella', 'Rodriguez', '2004-06-30', 'Female', 11, 5),  
+('Mason', 'Wilson', '2006-08-10', 'Male', 9, 6),  
+('Lucas', 'Taylor', '2007-01-05', 'Male', 8, 1),  
+('Mia', 'Moore', '2004-09-09', 'Female', 11, 2),  
+('Harper', 'Thomas', '2006-10-20', 'Female', 9, 3);
+
+-- 4. Create Exams Table and insert data
+CREATE TABLE Exams (
+    exam_id INT PRIMARY KEY AUTO_INCREMENT,
+    exam_name VARCHAR(100),
+    class_id INT,
+    exam_date DATE,
+    total_marks INT,
+    passing_marks INT,
+    FOREIGN KEY (class_id) REFERENCES Classes(class_id)
+);
+
+-- Insert data into Exams Table
+INSERT INTO Exams (exam_name, class_id, exam_date, total_marks, passing_marks) VALUES
+('Math Midterm', 1, '2024-03-15', 100, 50),
+('English Midterm', 2, '2024-03-20', 100, 50),
+('Science Midterm', 3, '2024-03-25', 100, 50),
+('History Midterm', 4, '2024-03-30', 100, 50),
+('PE Fitness Test', 5, '2024-04-05', 100, 50),
+('Art Portfolio', 6, '2024-04-10', 100, 50),
+('Math Final', 1, '2024-06-10', 100, 50),
+('English Final', 2, '2024-06-15', 100, 50),
+('Science Final', 3, '2024-06-20', 100, 50),
+('History Final', 4, '2024-06-25', 100, 50),
+('PE Endurance Test', 5, '2024-07-01', 100, 50),
+('Art Final Project', 6, '2024-07-05', 100, 50),
+('Math 201 Midterm', 7, '2024-03-15', 100, 50),
+('Science 201 Midterm', 8, '2024-03-20', 100, 50),
+('History 201 Midterm', 9, '2024-03-25', 100, 50);
+
+-- 5. Create Library Table and insert data
+CREATE TABLE Library (
+    book_id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255),
+    author VARCHAR(100),
+    publication_year INT,
+    category VARCHAR(100),
+    took_by INT NULL,
+    FOREIGN KEY (took_by) REFERENCES Students(student_id) ON DELETE SET NULL
+);
+
+-- Insert data into Library Table
+INSERT INTO Library (title, author, publication_year, category, took_by) VALUES
+('The Great Gatsby', 'F. Scott Fitzgerald', 1925, 'Fiction', NULL),
+('To Kill a Mockingbird', 'Harper Lee', 1960, 'Fiction', 1),
+('1984', 'George Orwell', 1949, 'Dystopian', 2),
+('Moby Dick', 'Herman Melville', 1851, 'Adventure', 3),
+('War and Peace', 'Leo Tolstoy', 1869, 'Historical Fiction', NULL),
+('Pride and Prejudice', 'Jane Austen', 1813, 'Romance', 4),
+('The Catcher in the Rye', 'J.D. Salinger', 1951, 'Fiction', 5),
+('The Lord of the Rings', 'J.R.R. Tolkien', 1954, 'Fantasy', 6),
+('The Hobbit', 'J.R.R. Tolkien', 1937, 'Fantasy', NULL),
+('A Tale of Two Cities', 'Charles Dickens', 1859, 'Historical Fiction', 8),
+('Jane Eyre', 'Charlotte Brontë', 1847, 'Romance', 9),
+('Wuthering Heights', 'Emily Brontë', 1847, 'Romance', 10),
+('The Odyssey', 'Homer', 2000, 'Epic', NULL), 
+('The Iliad', 'Homer', 2000, 'Epic', NULL),   
+('Crime and Punishment', 'Fyodor Dostoevsky', 1866, 'Philosophical Fiction', 11),
+('Brave New World', 'Aldous Huxley', 1932, 'Dystopian', 12);
+
+
+select * from teachers;
+
+select * from students;
+
+select * from classes;
+
+select * from exams;
+
+select * from library;
+
+with books_before_1900 as (
+	select 
+ 		title as name,
+		coalesce(took_by, 'no-one') as took_by
+	from library
+ 	where publication_year <= 1900
+  
+),
+
+select * from books_before_1900
+
+with joining as (
+	select
+	    s.first_name as st_name,
+	    s.last_name as st_lt_name,
+	    t.first_name as t_name,
+	    c.class_name as name,
+	    e.exam_name,
+	    e.exam_date,
+	    l.title,
+	    l.category
+  	from 
+    	students s 
+  	left join 
+  		library l on s.student_id = l.took_by
+  	join 
+  		classes c on s.favourite_class_id = c.class_id
+  	join 
+  		teachers t on t.teacher_id = c.teacher_id
+  	join 
+  		exams e on e.class_id = c.class_id
+  	where 
+  		e.exam_date >= '2024-04-01'
+)
+
+select 
+	name,
+	count(title) as quant_of_borrowed_books
+from joining
+group by name
+having quant_of_borrowed_books > 1
+order by quant_of_borrowed_books desc
+
+
+select name from joining
+union all
+select name from books_before_1900
